@@ -91,12 +91,9 @@ export const suggestMaxPriorityFee = async (provider: JsonRpcProvider, fromBlock
     const emaPerc30 = ema(blocksRewardsPerc30, blocksRewardsPerc30.length)[blocksRewardsPerc30.length - 1];
     const emaPerc45 = ema(blocksRewardsPerc45, blocksRewardsPerc45.length)[blocksRewardsPerc45.length - 1];
 
-    if (emaPerc10 === undefined || emaPerc15 === undefined || emaPerc30 === undefined || emaPerc45 === undefined)
+    if (emaPerc10 === undefined || emaPerc15 === undefined || emaPerc30 === undefined || emaPerc45 === undefined) {
         throw new Error('Error: ema was undefined');
-
-    const boundedNormalPriorityFee = Math.min(Math.max(emaPerc15, 1), 1.8);
-    const boundedFastMaxPriorityFee = Math.min(Math.max(emaPerc30, 1.5), 3);
-    const boundedUrgentPriorityFee = Math.min(Math.max(emaPerc45, 2), 9);
+    }
 
     return {
         blocksToConfirmationByPriorityFee: {
@@ -112,9 +109,9 @@ export const suggestMaxPriorityFee = async (provider: JsonRpcProvider, fromBlock
             60: gweiToWei(emaPerc10),
         },
         maxPriorityFeeSuggestions: {
-            fast: gweiToWei(boundedFastMaxPriorityFee),
-            normal: gweiToWei(boundedNormalPriorityFee),
-            urgent: gweiToWei(boundedUrgentPriorityFee),
+            fast: gweiToWei(emaPerc30),
+            normal: gweiToWei(emaPerc15),
+            urgent: gweiToWei(emaPerc45),
         },
     };
 };

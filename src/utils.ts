@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { TREND_THRESHOLDS } from './constants';
 import { Reward } from './entities';
+import { iqr } from './iqr';
 
 type BigNumberish = number | string | BigNumber;
 
@@ -88,15 +89,15 @@ export const suggestBaseFee = (baseFee: number[], order: number[], timeFactor: n
 };
 
 export const getOutlierBlocksToRemove = (blocksRewards: Reward[], index: number) => {
-    const blocks: number[] = [];
-    blocksRewards
-        .map((reward) => weiToGweiNumber(reward[index]))
-        .forEach((gweiReward, i) => {
-            if (gweiReward > 5) {
-                blocks.push(i);
-            }
-        });
-    return blocks;
+    const blockRewardsInGwei = blocksRewards.map((reward) => weiToGweiNumber(reward[index]));
+    const filtered = iqr(blockRewardsInGwei);
+    const outliers = blockRewardsInGwei.reduce((result: number[], n: number, index: number) => {
+        if (!filtered.includes(n)) {
+            result.push(index);
+        }
+        return result;
+    }, []);
+    return outliers;
 };
 
 export const rewardsFilterOutliers = (blocksRewards: Reward[], outlierBlocks: number[], rewardIndex: number) =>
