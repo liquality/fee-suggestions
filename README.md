@@ -1,5 +1,9 @@
 # 🔥 EIP-1559 Fee Suggestions 🔥
 
+### Changes 
+- remove upper boundaries for priority fee
+- use IQR to omit outlier block rewards
+
 The function `suggestFees()` is a utility function written in Javascript and it's intended to use with an [ethers.js](https://docs.ethers.io/v5/) provider.
  
 It returns an object containing:
