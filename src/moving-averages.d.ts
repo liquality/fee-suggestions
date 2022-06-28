@@ -1,3 +1,3 @@
 declare module 'moving-averages' {
-  function ema(values: number[], length: number): number[];
+    function ema(values: number[], length: number): number[];
 }

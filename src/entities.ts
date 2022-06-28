@@ -2,18 +2,18 @@ export type Reward = string[];
 export type GasUsedRatio = number[];
 
 export interface BlocksToConfirmationByPriorityFee {
-  1: string;
-  2: string;
-  3: string;
-  4: string;
+    1: string;
+    2: string;
+    3: string;
+    4: string;
 }
 
 export interface BlocksToConfirmationByBaseFee {
-  4: string;
-  8: string;
-  40: string;
-  120: string;
-  240: string;
+    4: string;
+    8: string;
+    40: string;
+    120: string;
+    240: string;
 }
 
 /**
@@ -25,10 +25,10 @@ export interface BlocksToConfirmationByBaseFee {
  * @member reward - Array of effective priority fee per gas data points from a single block
  */
 export interface FeeHistoryResponse {
-  baseFeePerGas: string[];
-  gasUsedRatio: GasUsedRatio;
-  oldestBlock: number;
-  reward: Reward[];
+    baseFeePerGas: string[];
+    gasUsedRatio: GasUsedRatio;
+    oldestBlock: number;
+    reward: Reward[];
 }
 
 /**
@@ -40,10 +40,10 @@ export interface FeeHistoryResponse {
  * @member blocksToConfirmationByBaseFee - Object containing estimated blocks that a confirmation is going to happen if `blocksToConfirmationByBaseFee[blocks]` is used as `maxBasefee`, in wei string
  */
 export interface MaxFeeSuggestions {
-  baseFeeSuggestion: string;
-  baseFeeTrend: number;
-  blocksToConfirmationByBaseFee: BlocksToConfirmationByBaseFee;
-  currentBaseFee: string;
+    baseFeeSuggestion: string;
+    baseFeeTrend: number;
+    blocksToConfirmationByBaseFee: BlocksToConfirmationByBaseFee;
+    currentBaseFee: string;
 }
 
 /**
@@ -54,16 +54,14 @@ export interface MaxFeeSuggestions {
  * @member blocksToConfirmationByPriorityFee - Object containing estimated blocks that a confirmation is going to happen if `confirmationTimeByPriorityFee[blocks]` is used as `maxPriorityfee`, in wei string
  */
 export interface MaxPriorityFeeSuggestions {
-  blocksToConfirmationByPriorityFee: BlocksToConfirmationByPriorityFee;
-  confirmationTimeByPriorityFee: {
-    15: string;
-    30: string;
-    45: string;
-    60: string;
-  };
-  maxPriorityFeeSuggestions: { urgent: string; fast: string; normal: string };
+    blocksToConfirmationByPriorityFee: BlocksToConfirmationByPriorityFee;
+    confirmationTimeByPriorityFee: {
+        15: string;
+        30: string;
+        45: string;
+        60: string;
+    };
+    maxPriorityFeeSuggestions: { urgent: string; fast: string; normal: string };
 }
 
-export interface Suggestions
-  extends MaxFeeSuggestions,
-    MaxPriorityFeeSuggestions {}
+export interface Suggestions extends MaxFeeSuggestions, MaxPriorityFeeSuggestions {}
